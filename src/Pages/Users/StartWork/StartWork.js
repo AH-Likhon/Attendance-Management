@@ -14,6 +14,35 @@ const StartWork = () => {
     const year = today.getFullYear();
     const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
 
+    const recordStart = e => {
+        // const today = new Date();
+        const startTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        const day = today.getDay();
+        // console.log(day);
+        // return startTime;
+        const startObj = { startTime: startTime, day: day };
+        fetch("http://localhost:5000/startRecording", {
+            method: "POST",
+            headers: { "content-type": "application/json" },
+            body: JSON.stringify(startObj),
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.insertedId) {
+                    alert('Successfully Added');
+                }
+            });
+        console.log(startObj);
+
+        e.preventDefault();
+    }
+
+    const recordEnd = e => {
+        const endTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+        e.preventDefault();
+        return endTime;
+    }
+
     return (
         // <>
 
@@ -47,10 +76,10 @@ const StartWork = () => {
                         <Typography sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', }} variant="p" gutterBottom component="div">
                             <span style={{ fontSize: '24px' }}>{year}</span> <span>{time}</span>
                         </Typography>
-                        <Typography sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
+                        <Typography onClick={recordStart} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <AccessTimeIcon /> Start Working
                         </Typography>
-                        <Typography sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
+                        <Typography onClick={recordEnd} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <DirectionsWalkIcon /> Finish Working
                         </Typography>
                         <Typography sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
