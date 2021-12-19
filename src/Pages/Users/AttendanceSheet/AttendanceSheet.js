@@ -137,16 +137,45 @@ const AttendanceSheet = () => {
     // };
 
     const [recordTime, setRecordTime] = React.useState([]);
+    const [endTime, setEndTime] = React.useState([]);
+    const [startBreak, setStartBreak] = React.useState([]);
+    const [endBreak, setEndBreak] = React.useState([]);
 
 
 
     React.useEffect(() => {
-        const url = `http://localhost:5000/startRecording`;
+        const url = `http://localhost:5000/recordTime`;
         fetch(url)
             .then(res => res.json())
             .then(data => setRecordTime(data))
     }, []);
     console.log(recordTime);
+
+
+    // React.useEffect(() => {
+    //     const url = `http://localhost:5000/endRecording`;
+    //     fetch(url)
+    //         .then(res => res.json())
+    //         .then(data => setEndTime(data))
+    // }, []);
+    // console.log(recordTime);
+
+
+    // React.useEffect(() => {
+    //     const url = `http://localhost:5000/startBreak`;
+    //     fetch(url)
+    //         .then(res => res.json())
+    //         .then(data => setStartBreak(data))
+    // }, []);
+
+    // React.useEffect(() => {
+    //     const url = `http://localhost:5000/endBreak`;
+    //     fetch(url)
+    //         .then(res => res.json())
+    //         .then(data => setEndBreak(data))
+    // }, []);
+
+
 
     return (
         // <>
@@ -194,18 +223,22 @@ const AttendanceSheet = () => {
                         </Stack>
                     </LocalizationProvider>
 
-                    <Paper sx={{ width: '100%' }}>
+                    <Paper sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
                         <TableContainer component={Paper} sx={{ width: { sm: '100%', md: '100%' } }}>
                             <Table aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
 
-                                        <StyledTableCell align="center">Email</StyledTableCell>
-                                        <StyledTableCell align="center">Car Model</StyledTableCell>
-                                        <StyledTableCell align="center">Status</StyledTableCell>
-
-                                        <StyledTableCell align="center">Action</StyledTableCell>
+                                        <StyledTableCell align="center">Start Working </StyledTableCell>
+                                        <StyledTableCell align="center">Finish Working </StyledTableCell>
+                                        <StyledTableCell align="center">Break In </StyledTableCell>
+                                        <StyledTableCell align="center">Break Out </StyledTableCell>
+                                        <StyledTableCell align="center">Total Working Hours </StyledTableCell>
+                                        <StyledTableCell align="center">Break Hours </StyledTableCell>
+                                        <StyledTableCell align="center">Memo</StyledTableCell>
                                     </TableRow>
+
+
                                 </TableHead>
                                 <TableBody>
                                     {recordTime.map((row) => (
@@ -214,34 +247,28 @@ const AttendanceSheet = () => {
                                             <StyledTableCell align="center">
                                                 {row.startTime}
                                             </StyledTableCell>
-
                                             <StyledTableCell align="center">
-                                                {row.day}
+                                                {row.endTime}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.startBreakTime}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.endBreakTime}
                                             </StyledTableCell>
 
-
                                             <StyledTableCell align="center">
-                                                {/* <Button onClick={() => handleUpdate(row._id)} style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained" >{row.status}</Button>
-                                    </StyledTableCell>
-
-                                            <StyledTableCell align="center">
-                                    {/* <Button onClick={() => handleDelete(row._id)} style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained" >Remove</Button> */}
+                                                {Number(row.endTime.slice(0, 1)) - Number(row.startTime.slice(0, 1))} - {Number(row.endBreakTime.slice(0, 1)) - Number(row.startBreakTime.slice(0, 1))}
                                             </StyledTableCell>
+
                                         </StyledTableRow>
                                     ))}
 
                                 </TableBody>
                             </Table>
                         </TableContainer>
-                        {/* <TablePagination
-                            rowsPerPageOptions={[10, 25, 100]}
-                            component="div"
-                            count={rows.length}
-                            rowsPerPage={rowsPerPage}
-                            page={page}
-                            onPageChange={handleChangePage}
-                            onRowsPerPageChange={handleChangeRowsPerPage}
-                        /> */}
+
+
                     </Paper>
                 </Container>
             </Grid>
