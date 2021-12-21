@@ -229,6 +229,8 @@ const AttendanceSheet = () => {
                                 <TableHead>
                                     <TableRow>
 
+                                        <StyledTableCell align="center">SI </StyledTableCell>
+                                        <StyledTableCell align="center">Day</StyledTableCell>
                                         <StyledTableCell align="center">Start Working </StyledTableCell>
                                         <StyledTableCell align="center">Finish Working </StyledTableCell>
                                         <StyledTableCell align="center">Break In </StyledTableCell>
@@ -241,9 +243,15 @@ const AttendanceSheet = () => {
 
                                 </TableHead>
                                 <TableBody>
-                                    {recordTime.map((row) => (
+                                    {recordTime.map((row, index) => (
                                         <StyledTableRow key={row._id}>
 
+                                            <StyledTableCell align="center">
+                                                {index + 1}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.day}
+                                            </StyledTableCell>
                                             <StyledTableCell align="center">
                                                 {row.startTime}
                                             </StyledTableCell>
@@ -256,10 +264,25 @@ const AttendanceSheet = () => {
                                             <StyledTableCell align="center">
                                                 {row.endBreakTime}
                                             </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.totalWorkingHour}:{row.totalWorkingMin} Hours
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {(row.endBreakHour) - (row.startBreakHour)}:{(row.endBreakMin) - (row.startBreakMin)} Hours
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.memo}
+                                            </StyledTableCell>
+                                            {/* <StyledTableCell align="center">
+                                                {row.startBreakTime}
+                                            </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                {row.endBreakTime}
+                                            </StyledTableCell>
 
                                             <StyledTableCell align="center">
                                                 {Number(row.endTime.slice(0, 1)) - Number(row.startTime.slice(0, 1))} - {Number(row.endBreakTime.slice(0, 1)) - Number(row.startBreakTime.slice(0, 1))}
-                                            </StyledTableCell>
+                                            </StyledTableCell> */}
 
                                         </StyledTableRow>
                                     ))}

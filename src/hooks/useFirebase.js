@@ -39,7 +39,7 @@ const useFirebase = () => {
                     // ...
                 });
 
-                navigate('/home');
+                navigate('/');
             })
             .catch((error) => {
                 setAuthError(error.message);
@@ -54,7 +54,7 @@ const useFirebase = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // const user = userCredential.user;
-                const destination = location?.state?.from || '/home';
+                const destination = location?.state?.from || '/';
                 navigate(destination);
                 setAuthError('');
             })
@@ -73,7 +73,7 @@ const useFirebase = () => {
 
                 // saveUser(user.email, user.displayName, 'PUT');
 
-                const destination = location?.state?.from || '/home';
+                const destination = location?.state?.from || '/';
                 navigate(destination);
                 setAuthError('');
 

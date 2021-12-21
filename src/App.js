@@ -6,6 +6,7 @@ import AuthProvider from './contexts/AuthProvider';
 import Home from './Pages/Home/Home';
 import StartWork from './Pages/Users/StartWork/StartWork';
 import AttendanceSheet from './Pages/Users/AttendanceSheet/AttendanceSheet';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
@@ -13,7 +14,10 @@ function App() {
       <AuthProvider>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<PrivateRoute>
+              <StartWork />
+            </PrivateRoute>}>
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
