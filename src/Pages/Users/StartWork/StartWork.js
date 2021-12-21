@@ -1,28 +1,16 @@
 import React, { useState } from 'react';
-import { Alert, Button, CircularProgress, Container, Grid, Box, TextField, Typography, Link, Divider, Popper, Fade, Paper, IconButton, Menu } from '@mui/material';
+import { Alert, Button, Container, Grid, Box, TextField, Typography, Divider, Popper, Fade, Paper, } from '@mui/material';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
 import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
 import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HomeIcon from '@mui/icons-material/Home';
-import ListAltIcon from '@mui/icons-material/ListAlt';
 import ArrowDropDownCircleRoundedIcon from '@mui/icons-material/ArrowDropDownCircleRounded';
+import Header from '../../Header/Header';
 import useAuth from '../../../hooks/useAuth';
-import { AccountCircle } from '@mui/icons-material';
-// import { Link } from 'react-router-dom';
 
 const StartWork = () => {
-    const { user, logOut } = useAuth();
-
-    const handleMenu = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
-
+    const { user } = useAuth();
+    const userEmail = user.email;
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(false);
@@ -62,7 +50,7 @@ const StartWork = () => {
 
 
 
-    const combine = { ...collectionRecord, ...breakStartRecord, ...breakEndRecord, ...endRecord, ...collectMemo, totalWorkingHour, totalWorkingMin };
+    const combine = { userEmail, ...collectionRecord, ...breakStartRecord, ...breakEndRecord, ...endRecord, ...collectMemo, totalWorkingHour, totalWorkingMin };
     console.log(combine);
 
 
@@ -155,72 +143,9 @@ const StartWork = () => {
         // <>
 
         <Grid container spacing={2} sx={{ mt: 0, }}>
-            <Grid item xs={12} md={12}>
-                <Container sx={{ width: '100%', color: 'black', display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: ' flex', flexGrow: 1 }}>
 
-                        <Link href="/home" underline="none" color="black">
-                            <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
-                                <HomeIcon /> Home
-                            </Typography>
-                        </Link>
+            <Header />
 
-                        <Link href="/AttendanceSheet" underline="none" color="black">
-                            <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
-                                <ListAltIcon /> Attendance Sheet
-                            </Typography>
-                        </Link>
-                    </Box>
-                    {/* <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fw: 'bold' }} variant="p" gutterBottom component="div">
-                        <SettingsIcon /> Setting
-                    </Typography> */}
-                    {
-                        user?.email ?
-                            <Box>
-                                <IconButton
-                                    size="small"
-                                    aria-label="account of current user"
-                                    aria-controls="menu-appbar"
-                                    aria-haspopup="true"
-                                    onClick={handleMenu}
-                                    color="inherit"
-                                >
-                                    <SettingsIcon /> Setting
-                                </IconButton>
-                                <Menu
-                                    id="menu-appbar"
-                                    sx={{ mt: '28px' }}
-                                    anchorEl={anchorEl}
-                                    anchorOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    keepMounted
-                                    transformOrigin={{
-                                        vertical: 'top',
-                                        horizontal: 'right',
-                                    }}
-                                    open={Boolean(anchorEl)}
-                                    onClose={handleClose}
-                                >
-
-                                    <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">{user?.displayName}</Button></Link>
-                                    <br />
-
-                                    <Link sx={{ color: 'text.primary' }} href="/" underline="none"><Button onClick={handleClose} color="inherit">Home</Button></Link>
-                                    <br />
-
-                                    <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">Dashboard</Button></Link>
-                                    <br />
-
-                                    <Button onClick={logOut} color="inherit">LogOut</Button>
-                                </Menu>
-                            </Box>
-                            :
-                            <Link sx={{ color: 'text.primary' }} href="/login" underline="none"><Button color="inherit">Login</Button></Link>
-                    }
-                </Container>
-            </Grid>
             <Divider sx={{ width: '100%' }} />
 
             <Grid item xs={12} md={12}>

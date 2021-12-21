@@ -18,11 +18,19 @@ function App() {
               <StartWork />
             </PrivateRoute>}>
             </Route>
+            <Route path="/StartWork" element={<PrivateRoute>
+              <StartWork />
+            </PrivateRoute>}>
+            </Route>
+            <Route path="/AttendanceSheet" element={<PrivateRoute>
+              <AttendanceSheet />
+            </PrivateRoute>}>
+            </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
-            <Route path="/StartWorking" element={<StartWork />} />
-            <Route path="/AttendanceSheet" element={<AttendanceSheet />} />
+            {/* <Route path="/StartWorking" element={<StartWork />} /> */}
+            {/* <Route path="/AttendanceSheet" element={<AttendanceSheet />} /> */}
           </Routes>
         </BrowserRouter>
       </AuthProvider>

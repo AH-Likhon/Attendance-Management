@@ -10,7 +10,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
-    // const [admin, setAdmin] = useState(false);
+    const [admin, setAdmin] = useState(false);
     // const [token, setToken] = useState('');
 
     const auth = getAuth();
@@ -27,7 +27,7 @@ const useFirebase = () => {
 
 
                 // save data to database
-                // saveUser(email, name, 'POST');
+                saveUser(email, name, 'POST');
 
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -71,7 +71,7 @@ const useFirebase = () => {
             .then((result) => {
                 const user = result.user;
 
-                // saveUser(user.email, user.displayName, 'PUT');
+                saveUser(user.email, user.displayName, 'PUT');
 
                 const destination = location?.state?.from || '/';
                 navigate(destination);
@@ -98,11 +98,11 @@ const useFirebase = () => {
         return () => unSubscribed;
     }, [])
 
-    // useEffect(() => {
-    //     fetch(`https://polar-inlet-21575.herokuapp.com/users/${user.email}`)
-    //         .then(res => res.json())
-    //         .then(data => setAdmin(data.admin))
-    // }, [user.email])
+    useEffect(() => {
+        fetch(`http://localhost:5000/users/${user.email}`)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
 
     const logOut = () => {
         setIsLoading(true);
@@ -114,22 +114,22 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
-    // const saveUser = (email, displayName, method) => {
-    //     const user = { email, displayName };
+    const saveUser = (email, displayName, method) => {
+        const user = { email, displayName };
 
-    //     fetch('https://polar-inlet-21575.herokuapp.com/users', {
-    //         method: method,
-    //         headers: {
-    //             'content-type': 'application/json'
-    //         },
-    //         body: JSON.stringify(user)
-    //     })
-    //         .then()
-    // }
+        fetch('http://localhost:5000/users', {
+            method: method,
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
+    }
 
     return {
         user,
-        // admin,
+        admin,
         // token,
         registerUser,
         loginUser,

@@ -1,101 +1,20 @@
 import * as React from 'react';
-import { Alert, Button, CircularProgress, Container, Grid, Box, TextField, Typography, Link, Divider } from '@mui/material';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import DirectionsWalkIcon from '@mui/icons-material/DirectionsWalk';
-import FreeBreakfastIcon from '@mui/icons-material/FreeBreakfast';
-import ArrowCircleLeftIcon from '@mui/icons-material/ArrowCircleLeft';
-import SettingsIcon from '@mui/icons-material/Settings';
-import HomeIcon from '@mui/icons-material/Home';
-import ListAltIcon from '@mui/icons-material/ListAlt';
+import { Container, Grid, Box, TextField, Divider, } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
-import TablePagination from '@mui/material/TablePagination';
 import TableRow from '@mui/material/TableRow';
 import { styled } from '@mui/material/styles';
 import AdapterDateFns from '@mui/lab/AdapterDateFns';
 import LocalizationProvider from '@mui/lab/LocalizationProvider';
-import DatePicker from '@mui/lab/DatePicker';
-import MobileDatePicker from '@mui/lab/MobileDatePicker';
 import DesktopDatePicker from '@mui/lab/DesktopDatePicker';
 import Stack from '@mui/material/Stack';
-import isWeekend from 'date-fns/isWeekend';
+import Header from '../../Header/Header';
+import useAuth from '../../../hooks/useAuth';
 
-
-
-
-// const StyledTableCell = styled(TableCell)(({ theme }) => ({
-//     [`&.${tableCellClasses.head}`]: {
-//         backgroundColor: theme.palette.common.black,
-//         color: theme.palette.common.white,
-//     },
-//     [`&.${tableCellClasses.body}`]: {
-//         fontSize: 14,
-//     },
-// }));
-
-// const StyledTableRow = styled(TableRow)(({ theme }) => ({
-//     '&:nth-of-type(odd)': {
-//         backgroundColor: theme.palette.action.hover,
-//     },
-//     // hide last border
-//     '&:last-child td, &:last-child th': {
-//         border: 0,
-//     },
-// }));
-
-
-// const columns = [
-//     { id: 'name', label: 'Name', minWidth: 170 },
-//     { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
-//     {
-//         id: 'population',
-//         label: 'Population',
-//         minWidth: 170,
-//         align: 'right',
-//         format: (value) => value.toLocaleString('en-US'),
-//     },
-//     {
-//         id: 'size',
-//         label: 'Size\u00a0(km\u00b2)',
-//         minWidth: 170,
-//         align: 'right',
-//         format: (value) => value.toLocaleString('en-US'),
-//     },
-//     {
-//         id: 'density',
-//         label: 'Density',
-//         minWidth: 170,
-//         align: 'right',
-//         format: (value) => value.toFixed(2),
-//     },
-// ];
-
-// function createData(name, code, population, size) {
-//     const density = population / size;
-//     return { name, code, population, size, density };
-// }
-
-// const rows = [
-//     createData('India', 'IN', 1324171354, 3287263),
-//     createData('China', 'CN', 1403500365, 9596961),
-//     createData('Italy', 'IT', 60483973, 301340),
-//     createData('United States', 'US', 327167434, 9833520),
-//     createData('Canada', 'CA', 37602103, 9984670),
-//     createData('Australia', 'AU', 25475400, 7692024),
-//     createData('Germany', 'DE', 83019200, 357578),
-//     createData('Ireland', 'IE', 4857000, 70273),
-//     createData('Mexico', 'MX', 126577691, 1972550),
-//     createData('Japan', 'JP', 126317000, 377973),
-//     createData('France', 'FR', 67022000, 640679),
-//     createData('United Kingdom', 'GB', 67545757, 242495),
-//     createData('Russia', 'RU', 146793744, 17098246),
-//     createData('Nigeria', 'NG', 200962417, 923768),
-//     createData('Brazil', 'BR', 210147125, 8515767),
-// ];
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
     [`&.${tableCellClasses.head}`]: {
@@ -119,89 +38,26 @@ const StyledTableRow = styled(TableRow)(({ theme }) => ({
 
 
 const AttendanceSheet = () => {
+
+    const { user } = useAuth();
+
     const [value, setValue] = React.useState(new Date());
-    // const today = new Date();
-    // const year = today.getFullYear();
-    // const time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
-
-    // const [page, setPage] = React.useState(0);
-    // const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-    // const handleChangePage = (event, newPage) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = (event) => {
-    //     setRowsPerPage(+event.target.value);
-    //     setPage(0);
-    // };
-
     const [recordTime, setRecordTime] = React.useState([]);
-    const [endTime, setEndTime] = React.useState([]);
-    const [startBreak, setStartBreak] = React.useState([]);
-    const [endBreak, setEndBreak] = React.useState([]);
-
-
 
     React.useEffect(() => {
-        const url = `http://localhost:5000/recordTime`;
+        const url = `http://localhost:5000/allAttendance?userEmail=${user.email}`;
         fetch(url)
             .then(res => res.json())
             .then(data => setRecordTime(data))
-    }, []);
+    }, [user.email]);
     console.log(recordTime);
-
-
-    // React.useEffect(() => {
-    //     const url = `http://localhost:5000/endRecording`;
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(data => setEndTime(data))
-    // }, []);
-    // console.log(recordTime);
-
-
-    // React.useEffect(() => {
-    //     const url = `http://localhost:5000/startBreak`;
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(data => setStartBreak(data))
-    // }, []);
-
-    // React.useEffect(() => {
-    //     const url = `http://localhost:5000/endBreak`;
-    //     fetch(url)
-    //         .then(res => res.json())
-    //         .then(data => setEndBreak(data))
-    // }, []);
-
 
 
     return (
         // <>
 
         <Grid container spacing={2} sx={{ mt: 0, }}>
-            <Grid item xs={12} md={12}>
-                <Container sx={{ width: '100%', color: 'black', display: 'flex', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: ' flex', flexGrow: 1 }}>
-
-                        <Link href="/home" underline="none" color="black">
-                            <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
-                                <HomeIcon /> Home
-                            </Typography>
-                        </Link>
-
-                        <Link href="/home" underline="none" color="black">
-                            <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
-                                <ListAltIcon /> Attendance Sheet
-                            </Typography>
-                        </Link>
-                    </Box>
-                    <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', fw: 'bold' }} variant="p" gutterBottom component="div">
-                        <SettingsIcon /> Setting
-                    </Typography>
-                </Container>
-            </Grid>
+            <Header />
             <Divider sx={{ width: '100%' }} />
 
 
@@ -273,16 +129,6 @@ const AttendanceSheet = () => {
                                             <StyledTableCell align="center">
                                                 {row.memo}
                                             </StyledTableCell>
-                                            {/* <StyledTableCell align="center">
-                                                {row.startBreakTime}
-                                            </StyledTableCell>
-                                            <StyledTableCell align="center">
-                                                {row.endBreakTime}
-                                            </StyledTableCell>
-
-                                            <StyledTableCell align="center">
-                                                {Number(row.endTime.slice(0, 1)) - Number(row.startTime.slice(0, 1))} - {Number(row.endBreakTime.slice(0, 1)) - Number(row.startBreakTime.slice(0, 1))}
-                                            </StyledTableCell> */}
 
                                         </StyledTableRow>
                                     ))}
