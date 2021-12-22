@@ -7,6 +7,8 @@ import Home from './Pages/Home/Home';
 import StartWork from './Pages/Users/StartWork/StartWork';
 import AttendanceSheet from './Pages/Users/AttendanceSheet/AttendanceSheet';
 import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
+import EditAttendance from './Pages/EditAttendance/EditAttendance';
+import EmployeeList from './Pages/AdminDashboard/EmployeeList/EmployeeList';
 
 function App() {
   return (
@@ -26,11 +28,21 @@ function App() {
               <AttendanceSheet />
             </PrivateRoute>}>
             </Route>
+
+            <Route path="/editAttendance/:id" element={<PrivateRoute>
+              <EditAttendance />
+            </PrivateRoute>}>
+            </Route>
+
+            <Route path="/employeeList" element={<PrivateRoute>
+              <EmployeeList />
+            </PrivateRoute>}>
+            </Route>
+
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
-            {/* <Route path="/StartWorking" element={<StartWork />} /> */}
-            {/* <Route path="/AttendanceSheet" element={<AttendanceSheet />} /> */}
+
           </Routes>
         </BrowserRouter>
       </AuthProvider>

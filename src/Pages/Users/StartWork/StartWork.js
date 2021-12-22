@@ -10,7 +10,7 @@ import useAuth from '../../../hooks/useAuth';
 
 const StartWork = () => {
     const { user } = useAuth();
-    const userEmail = user.email;
+    const email = user.email;
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(false);
@@ -50,7 +50,7 @@ const StartWork = () => {
 
 
 
-    const combine = { userEmail, ...collectionRecord, ...breakStartRecord, ...breakEndRecord, ...endRecord, ...collectMemo, totalWorkingHour, totalWorkingMin };
+    const combine = { email, ...collectionRecord, ...breakStartRecord, ...breakEndRecord, ...endRecord, ...collectMemo, totalWorkingHour, totalWorkingMin };
     console.log(combine);
 
 

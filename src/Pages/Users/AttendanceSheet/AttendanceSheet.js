@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Container, Grid, Box, TextField, Divider, } from '@mui/material';
+import { Container, Grid, Box, TextField, Divider, Button, Link, } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -45,12 +45,32 @@ const AttendanceSheet = () => {
     const [recordTime, setRecordTime] = React.useState([]);
 
     React.useEffect(() => {
-        const url = `http://localhost:5000/allAttendance?userEmail=${user.email}`;
+        const url = `http://localhost:5000/allAttendance?email=${user.email}`;
         fetch(url)
             .then(res => res.json())
             .then(data => setRecordTime(data))
     }, [user.email]);
-    console.log(recordTime);
+    // console.log(recordTime);
+
+    const handleDelete = (id) => {
+        const proceed = window.confirm('Do you want to delete?');
+        if (proceed) {
+            fetch(`http://localhost:5000/editAttendance/${id}`, {
+                method: "DELETE",
+                headers: { "content-type": "application/json" },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    console.log(data);
+                    if (data.deletedCount) {
+                        alert('Succesfully Deleted');
+                        const remaining = recordTime.filter(book => book._id !== id);
+                        setRecordTime(remaining);
+                    }
+                });
+        }
+        console.log(id);
+    };
 
 
     return (
@@ -62,9 +82,7 @@ const AttendanceSheet = () => {
 
 
             <Grid item xs={12} md={12}>
-                <Container sx={{ width: '100%', }}>
-
-
+                <Box sx={{ mx: 'auto', width: '98%' }}>
                     <LocalizationProvider dateAdapter={AdapterDateFns}>
                         <Stack sx={{ width: '150px', }} spacing={3}>
                             <DesktopDatePicker
@@ -79,7 +97,7 @@ const AttendanceSheet = () => {
                         </Stack>
                     </LocalizationProvider>
 
-                    <Paper sx={{ width: '100%', display: 'flex', justifyContent: 'center' }}>
+                    <Paper sx={{ width: '100%', display: 'flex', justifyContent: 'center', }}>
                         <TableContainer component={Paper} sx={{ width: { sm: '100%', md: '100%' } }}>
                             <Table aria-label="customized table">
                                 <TableHead>
@@ -94,6 +112,8 @@ const AttendanceSheet = () => {
                                         <StyledTableCell align="center">Total Working Hours </StyledTableCell>
                                         <StyledTableCell align="center">Break Hours </StyledTableCell>
                                         <StyledTableCell align="center">Memo</StyledTableCell>
+                                        <StyledTableCell align="center">Edit</StyledTableCell>
+                                        <StyledTableCell align="center">Delete</StyledTableCell>
                                     </TableRow>
 
 
@@ -129,6 +149,12 @@ const AttendanceSheet = () => {
                                             <StyledTableCell align="center">
                                                 {row.memo}
                                             </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Link href={`/editAttendance/${row._id}`} underline="none">
+                                                    <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained">Edit</Button>
+                                                </Link>                                </StyledTableCell>
+                                            <StyledTableCell align="center">
+                                                <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained" onClick={() => handleDelete(row._id)}>Delete</Button>                                </StyledTableCell>
 
                                         </StyledTableRow>
                                     ))}
@@ -139,7 +165,8 @@ const AttendanceSheet = () => {
 
 
                     </Paper>
-                </Container>
+                </Box>
+
             </Grid>
         </Grid>
         // </>

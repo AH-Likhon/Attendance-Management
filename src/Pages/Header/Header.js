@@ -74,7 +74,7 @@ const Header = () => {
                                 <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">{user?.displayName}</Button></Link>
                                 <br />
 
-                                <Link sx={{ color: 'text.primary' }} href="/" underline="none"><Button onClick={handleClose} color="inherit">Home</Button></Link>
+                                <Link sx={{ color: 'text.primary' }} href="/editAttendance" underline="none"><Button onClick={handleClose} color="inherit">Edit Attendance</Button></Link>
                                 <br />
 
                                 <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">Dashboard</Button></Link>
