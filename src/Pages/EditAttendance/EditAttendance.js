@@ -1,6 +1,6 @@
-import { Alert, Button, CircularProgress, Container, Divider, Grid, Input, OutlinedInput, TextField, Typography } from '@mui/material';
+import { Alert, Button, CircularProgress, Container, Divider, Grid, TextField, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import Header from '../Header/Header';
 
@@ -8,9 +8,8 @@ import Header from '../Header/Header';
 
 
 const EditAttendance = () => {
-    const [loginData, setLoginData] = useState({});
+
     const [editData, setEditData] = useState([]);
-    const navigate = useNavigate();
     const { id } = useParams();
     console.log(id);
 
@@ -25,7 +24,7 @@ const EditAttendance = () => {
     console.log(editData);
 
 
-    const { user, registerUser, isLoading, authError } = useAuth();
+    const { isLoading } = useAuth();
 
     const updateStartHour = e => {
         const startHour = e.target.value;

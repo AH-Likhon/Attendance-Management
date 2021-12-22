@@ -12,6 +12,8 @@ const StartWork = () => {
     const { user } = useAuth();
     const email = user.email;
 
+    const [message, setMessage] = useState("");
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [open, setOpen] = React.useState(false);
     const [placement, setPlacement] = React.useState();
@@ -65,6 +67,8 @@ const StartWork = () => {
         const startObj = { startTime: newDateFormat, day: weekDay, startHour: newDateFormatHour, startMin: newDateFormatMin };
         setCollectionRecord(startObj);
 
+        setMessage('Work Start Time is Successfully Recorded');
+
         e.preventDefault();
     }
 
@@ -78,6 +82,8 @@ const StartWork = () => {
         const startBreakObj = { startBreakTime: newDateFormat, startBreakHour, startBreakMin };
         setBreakStartRecord(startBreakObj);
 
+        setMessage('Break Time is Successfully Recorded Now');
+
         e.preventDefault();
     }
 
@@ -90,6 +96,8 @@ const StartWork = () => {
         const endBreakMin = today3.toLocaleString('en-US', { minute: 'numeric', hour12: true });
         const endBreakObj = { endBreakTime: newDateFormat, endBreakHour, endBreakMin };
         setBreakEndRecord(endBreakObj);
+
+        setMessage('Break Time is Successfully Ended');
 
         e.preventDefault();
     }
@@ -105,6 +113,7 @@ const StartWork = () => {
         // console.log(newDateFormat);
 
         alert('Do you submit now?');
+        setMessage('Work End Time is Successfully Recorded');
 
         e.preventDefault();
     }
@@ -119,8 +128,9 @@ const StartWork = () => {
 
     const memoSubmit = e => {
 
-        alert('Successfully Done')
+        // alert('Successfully Done')
         e.target.reset();
+        setMessage("Your Memo is Successfully Submitted");
         e.preventDefault();
     }
 
@@ -136,6 +146,7 @@ const StartWork = () => {
                     alert('Successfully Added');
                 }
             })
+        setMessage("Your Today's work record is Successfully Done");
     }
 
 
@@ -157,9 +168,7 @@ const StartWork = () => {
                         <Typography onClick={recordStart} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <AccessTimeIcon /> Start Working
                         </Typography>
-                        <Typography onClick={recordEnd} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
-                            <DirectionsWalkIcon /> Finish Working
-                        </Typography>
+
                         <Typography onClick={startBreak} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <FreeBreakfastIcon /> Start Break
                         </Typography>
@@ -169,6 +178,11 @@ const StartWork = () => {
                         <Typography onClick={handleClick('bottom')} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <ArrowDropDownCircleRoundedIcon /> Memo
                         </Typography>
+
+                        <Typography onClick={recordEnd} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
+                            <DirectionsWalkIcon /> Finish Working
+                        </Typography>
+
                         <Typography onClick={submitWork} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold', cursor: 'pointer' }} variant="p" gutterBottom component="div">
                             <ArrowDropDownCircleRoundedIcon /> Submit Today's Work
                         </Typography>
@@ -197,6 +211,8 @@ const StartWork = () => {
                                 </Fade>
                             )}
                         </Popper>
+
+                        {message && <Alert sx={{ m: 1 }} severity="success"> {message} </Alert>}
 
                     </Box>
                 </Container>

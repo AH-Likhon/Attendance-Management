@@ -93,8 +93,6 @@ const Register = () => {
                         </NavLink>
 
                     </form>}
-                    {/* } */}
-
 
                     {isLoading && <CircularProgress />}
                     {user?.email && <Alert severity="success">Successfully Registered!</Alert>}

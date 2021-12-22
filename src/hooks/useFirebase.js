@@ -16,18 +16,18 @@ const useFirebase = () => {
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
 
-    const registerUser = (email, password, name, navigate) => {
+    const registerUser = (email, password, name, navigate,) => {
         setIsLoading(true);
 
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 setAuthError('');
-                const newUser = { email, displayName: name };
+                const newUser = { email, displayName: name, };
                 setUser(newUser);
 
 
                 // save data to database
-                saveUser(email, name, 'POST');
+                saveUser(email, name, 'POST', password,);
 
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -115,7 +115,7 @@ const useFirebase = () => {
     }
 
     const saveUser = (email, displayName, method) => {
-        const user = { email, displayName, role: 'Member' };
+        const user = { email, displayName };
 
         fetch('http://localhost:5000/users', {
             method: method,

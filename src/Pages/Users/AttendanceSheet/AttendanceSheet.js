@@ -149,10 +149,12 @@ const AttendanceSheet = () => {
                                             <StyledTableCell align="center">
                                                 {row.memo}
                                             </StyledTableCell>
+
                                             <StyledTableCell align="center">
                                                 <Link href={`/editAttendance/${row._id}`} underline="none">
                                                     <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained">Edit</Button>
-                                                </Link>                                </StyledTableCell>
+                                                </Link>                             </StyledTableCell>
+
                                             <StyledTableCell align="center">
                                                 <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained" onClick={() => handleDelete(row._id)}>Delete</Button>                                </StyledTableCell>
 

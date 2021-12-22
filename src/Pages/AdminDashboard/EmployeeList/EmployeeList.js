@@ -31,7 +31,7 @@ const style = {
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 300,
+    width: 500,
     bgcolor: '#d2d2d3fc',
     border: '1px solid #000',
     boxShadow: 24,
@@ -79,12 +79,15 @@ const EmployeeList = () => {
             <Header />
             <Divider sx={{ width: '100%' }} />
             <Grid item xs={12} md={12}>
-                <Box sx={{ mx: 'auto', width: '98%' }}>
+                <Box sx={{ width: '80%', mx: 'auto', }}>
+                    <Typography sx={{ mt: 3, }} variant='h6'>Total Employee: {members.length} </Typography>
 
-                    <Typography sx={{ my: 3 }} variant='h6'>Employee List</Typography>
+                    <Link sx={{ marginLeft: '-928px', }} onClick={handleOpen} underline="none">
+                        <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6', }} variant="contained">Add New Member</Button>
+                    </Link>
 
-                    <Paper sx={{ width: '100%', display: 'flex', justifyContent: 'center', }}>
-                        <TableContainer component={Paper} sx={{ width: { sm: '100%', md: '100%' } }}>
+                    <Paper sx={{ width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', my: 1 }}>
+                        <TableContainer component={Paper} sx={{ width: { sm: '100%', md: '100%' }, }}>
                             <Table aria-label="customized table">
                                 <TableHead>
                                     <TableRow>
@@ -93,7 +96,7 @@ const EmployeeList = () => {
                                         <StyledTableCell align="center">Name</StyledTableCell>
                                         <StyledTableCell align="center">Email</StyledTableCell>
                                         <StyledTableCell align="center">Role Working </StyledTableCell>
-                                        <StyledTableCell align="center">Add New Member </StyledTableCell>
+                                        <StyledTableCell align="center">Edit </StyledTableCell>
                                         <StyledTableCell align="center">Delete </StyledTableCell>
                                     </TableRow>
                                 </TableHead>
@@ -115,10 +118,12 @@ const EmployeeList = () => {
                                                 {member.role}
                                             </StyledTableCell>
 
+
                                             <StyledTableCell align="center">
-                                                <Link onClick={handleOpen} underline="none">
-                                                    <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained">Add New Member</Button>
-                                                </Link>                                </StyledTableCell>
+                                                <Link href={`/editInformaion/${member._id}`} underline="none">
+                                                    <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained">Edit</Button>
+                                                </Link>                             </StyledTableCell>
+
                                             <StyledTableCell align="center">
                                                 <Button style={{ textDecoration: 'none', backgroundColor: '#cf2626d6' }} variant="contained" onClick={() => handleDelete(member._id)} >Delete</Button>
                                             </StyledTableCell>
@@ -136,7 +141,7 @@ const EmployeeList = () => {
                             aria-describedby="modal-modal-description"
                         >
                             <Box sx={style}>
-                                <AddMember/>
+                                <AddMember />
                             </Box>
                         </Modal>
 

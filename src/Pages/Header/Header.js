@@ -19,12 +19,19 @@ const Header = () => {
 
     return (
         <Grid item xs={12} md={12}>
-            <Container sx={{ width: '100%', color: 'black', display: 'flex', justifyContent: 'space-between' }}>
+            <Container sx={{ width: '100%', color: 'black', display: 'flex', justifyContent: 'space-between', py: 1 }}>
                 <Box sx={{ display: ' flex', flexGrow: 1 }}>
 
                     <Link href="/home" underline="none" color="black">
                         <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
                             <HomeIcon /> Home
+                        </Typography>
+                    </Link>
+
+
+                    <Link href="/StartWork" underline="none" color="black">
+                        <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
+                            <ListAltIcon /> Start Work
                         </Typography>
                     </Link>
 
@@ -34,11 +41,6 @@ const Header = () => {
                         </Typography>
                     </Link>
 
-                    <Link href="/StartWork" underline="none" color="black">
-                        <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
-                            <ListAltIcon /> Start Work
-                        </Typography>
-                    </Link>
                 </Box>
 
                 {
@@ -72,12 +74,6 @@ const Header = () => {
                             >
 
                                 <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">{user?.displayName}</Button></Link>
-                                <br />
-
-                                <Link sx={{ color: 'text.primary' }} href="/editAttendance" underline="none"><Button onClick={handleClose} color="inherit">Edit Attendance</Button></Link>
-                                <br />
-
-                                <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">Dashboard</Button></Link>
                                 <br />
 
                                 <Button onClick={logOut} color="inherit">LogOut</Button>
@@ -115,7 +111,7 @@ const Header = () => {
                                 <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">{user?.displayName}</Button></Link>
                                 <br />
 
-                                <Link sx={{ color: 'text.primary' }} href="/" underline="none"><Button onClick={handleClose} color="inherit">Home</Button></Link>
+                                <Link sx={{ color: 'text.primary' }} href="/employeeList" underline="none"><Button onClick={handleClose} color="inherit">Employee List</Button></Link>
                                 <br />
 
                                 <Button onClick={logOut} color="inherit">LogOut</Button>
