@@ -47,7 +47,7 @@ const EmployeeList = () => {
     const handleClose = () => setOpen(false);
 
     React.useEffect(() => {
-        const url = `http://localhost:5000/members`;
+        const url = `https://fierce-island-20603.herokuapp.com/members`;
         fetch(url)
             .then(res => res.json())
             .then(data => setMembers(data))
@@ -56,7 +56,7 @@ const EmployeeList = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Do you want to delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/users/${id}`, {
+            fetch(`https://fierce-island-20603.herokuapp.com/users/${id}`, {
                 method: "DELETE",
                 headers: { "content-type": "application/json" },
             })

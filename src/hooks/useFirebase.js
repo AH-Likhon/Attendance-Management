@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import initializeFirebase from "../Pages/Login/Firebase/firebase.init";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, updateProfile, getIdToken } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 
 
 // initialize firebase app
@@ -11,7 +11,6 @@ const useFirebase = () => {
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState('');
     const [admin, setAdmin] = useState(false);
-    // const [token, setToken] = useState('');
 
     const auth = getAuth();
     const googleProvider = new GoogleAuthProvider();
@@ -87,8 +86,7 @@ const useFirebase = () => {
         const unSubscribed = onAuthStateChanged(auth, (user) => {
             if (user) {
                 setUser(user);
-                // getIdToken(user)
-                //     .then(idToken => setToken(idToken))
+
             } else {
                 setUser({});
             }
@@ -99,7 +97,7 @@ const useFirebase = () => {
     }, [])
 
     useEffect(() => {
-        fetch(`http://localhost:5000/users/${user.email}`)
+        fetch(`https://fierce-island-20603.herokuapp.com/users/${user.email}`)
             .then(res => res.json())
             .then(data => setAdmin(data.admin))
     }, [user.email])
@@ -117,7 +115,7 @@ const useFirebase = () => {
     const saveUser = (email, displayName, method) => {
         const user = { email, displayName };
 
-        fetch('http://localhost:5000/users', {
+        fetch('https://fierce-island-20603.herokuapp.com/users', {
             method: method,
             headers: {
                 'content-type': 'application/json'
@@ -130,7 +128,6 @@ const useFirebase = () => {
     return {
         user,
         admin,
-        // token,
         registerUser,
         loginUser,
         signInWithGoogle,

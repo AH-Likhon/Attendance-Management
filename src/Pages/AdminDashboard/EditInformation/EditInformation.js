@@ -12,7 +12,7 @@ const EditInformation = () => {
     // console.log(id);
 
     useEffect(() => {
-        const url = `http://localhost:5000/members/${id}`;
+        const url = `https://fierce-island-20603.herokuapp.com/members/${id}`;
 
         fetch(url)
             .then(res => res.json())
@@ -63,7 +63,7 @@ const EditInformation = () => {
 
 
     const handleSubmit = e => {
-        fetch(`http://localhost:5000/members/${id}`, {
+        fetch(`https://fierce-island-20603.herokuapp.com/members/${id}`, {
             method: "PUT",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(editData),

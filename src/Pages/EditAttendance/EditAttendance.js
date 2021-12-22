@@ -14,7 +14,7 @@ const EditAttendance = () => {
     console.log(id);
 
     useEffect(() => {
-        const url = `http://localhost:5000/editAttendance/${id}`;
+        const url = `https://fierce-island-20603.herokuapp.com/editAttendance/${id}`;
 
         fetch(url)
             .then(res => res.json())
@@ -85,7 +85,7 @@ const EditAttendance = () => {
 
 
     const handleUpdate = e => {
-        const url = `http://localhost:5000/editAttendance/${id}`;
+        const url = `https://fierce-island-20603.herokuapp.com/editAttendance/${id}`;
         fetch(url, {
             method: 'PUT',
             headers: {

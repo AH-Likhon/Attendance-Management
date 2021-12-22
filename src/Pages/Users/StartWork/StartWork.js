@@ -135,7 +135,7 @@ const StartWork = () => {
     }
 
     const submitWork = e => {
-        fetch("http://localhost:5000/recordTime", {
+        fetch("https://fierce-island-20603.herokuapp.com/recordTime", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(combine),

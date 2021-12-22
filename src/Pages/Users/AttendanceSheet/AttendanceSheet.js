@@ -45,7 +45,7 @@ const AttendanceSheet = () => {
     const [recordTime, setRecordTime] = React.useState([]);
 
     React.useEffect(() => {
-        const url = `http://localhost:5000/allAttendance?email=${user.email}`;
+        const url = `https://fierce-island-20603.herokuapp.com/allAttendance?email=${user.email}`;
         fetch(url)
             .then(res => res.json())
             .then(data => setRecordTime(data))
@@ -55,7 +55,7 @@ const AttendanceSheet = () => {
     const handleDelete = (id) => {
         const proceed = window.confirm('Do you want to delete?');
         if (proceed) {
-            fetch(`http://localhost:5000/editAttendance/${id}`, {
+            fetch(`https://fierce-island-20603.herokuapp.com/editAttendance/${id}`, {
                 method: "DELETE",
                 headers: { "content-type": "application/json" },
             })

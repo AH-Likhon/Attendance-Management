@@ -44,7 +44,7 @@ const AddMember = () => {
 
 
     const handleSubmit = e => {
-        fetch("http://localhost:5000/users", {
+        fetch("https://fierce-island-20603.herokuapp.com/users", {
             method: "POST",
             headers: { "content-type": "application/json" },
             body: JSON.stringify(member),
