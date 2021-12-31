@@ -10,8 +10,10 @@ import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 import EditAttendance from './Pages/EditAttendance/EditAttendance';
 import EmployeeList from './Pages/AdminDashboard/EmployeeList/EmployeeList';
 import EditInformation from './Pages/AdminDashboard/EditInformation/EditInformation';
+import AdminRoute from './Pages/Login/AdminRoute/AdminRoute';
 
 function App() {
+
   return (
     <div className="App">
       <AuthProvider>
@@ -35,14 +37,15 @@ function App() {
             </PrivateRoute>}>
             </Route>
 
-            <Route path="/employeeList" element={<PrivateRoute>
+            <Route path="/employeeList" element={<AdminRoute>
               <EmployeeList />
-            </PrivateRoute>}>
+            </AdminRoute>
+            }>
             </Route>
 
-            <Route path="/editInformaion/:id" element={<PrivateRoute>
+            <Route path="/editInformaion/:id" element={<AdminRoute>
               <EditInformation />
-            </PrivateRoute>}>
+            </AdminRoute>}>
             </Route>
 
             <Route path="/login" element={<Login />} />

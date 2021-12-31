@@ -41,6 +41,17 @@ const Header = () => {
                         </Typography>
                     </Link>
 
+                    {
+                        user?.email && admin ?
+                            <Link href="/employeeList" underline="none" color="black">
+                                <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 1, fw: 'bold' }} variant="p" gutterBottom component="div">
+                                    <ListAltIcon /> Employee List
+                                </Typography>
+                            </Link>
+                            :
+                            ''
+                    }
+
                 </Box>
 
                 {
@@ -108,13 +119,13 @@ const Header = () => {
                                 onClose={handleClose}
                             >
 
-                                <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button onClick={handleClose} color="inherit">{user?.displayName}</Button></Link>
+                                <Link sx={{ color: 'text.primary' }} href="/dashboard" underline="none"><Button color="inherit">{user?.displayName}</Button></Link>
                                 <br />
 
-                                <Link sx={{ color: 'text.primary' }} href="/employeeList" underline="none"><Button onClick={handleClose} color="inherit">Employee List</Button></Link>
+                                <Link sx={{ color: 'text.primary' }} href='/employeeList' underline="none"><Button color="inherit">Employee List</Button></Link>
                                 <br />
 
-                                <Button onClick={logOut} color="inherit">LogOut</Button>
+                                <Link sx={{ color: 'text.primary' }} onClick={logOut} href='/login' underline="none"><Button color="inherit">LogOut</Button></Link>
                             </Menu>
                         </Box>
                 }
